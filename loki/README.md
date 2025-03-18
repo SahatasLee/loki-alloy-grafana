@@ -51,6 +51,60 @@ schema_config:
         period: 24h
 ```
 
+Storage
+
+https://community.grafana.com/t/need-help-with-loki3-and-external-minio-connection/125105/3
+
+Create
+
+    # bucketNames:
+    #   chunks: FIXME
+    #   ruler: FIXME
+    #   admin: FIXME
+
+```yaml
+loki:
+  storage:
+    # Loki requires a bucket for chunks and the ruler. GEL requires a third bucket for the admin API.
+    # Please provide these values if you are using object storage.
+    # bucketNames:
+    #   chunks: FIXME
+    #   ruler: FIXME
+    #   admin: FIXME
+    type: s3
+    s3:
+      s3: null
+      endpoint: null
+      region: null
+      secretAccessKey: null
+      accessKeyId: null
+      signatureVersion: null
+      s3ForcePathStyle: false
+      insecure: false
+      http_config: {}
+      # -- Check https://grafana.com/docs/loki/latest/configure/#s3_storage_config for more info on how to provide a backoff_config
+      backoff_config: {}
+      disable_dualstack: false
+    # Loki now supports using thanos storage clients for connecting to object storage backend.
+    # This will become the default way to configure storage in a future releases.
+    use_thanos_objstore: false
+
+    object_store:
+      # Type of object store. Valid options are: s3, gcs, azure
+      type: s3
+      prefix: null  # Optional prefix for storage keys
+
+      # S3 configuration (when type is "s3")
+      s3:
+        endpoint: null     # S3 endpoint URL
+        region: null       # Optional region
+        access_key_id: null      # Optional access key
+        secret_access_key: null  # Optional secret key
+        insecure: false       # Optional. Enable if using self-signed TLS
+        sse: {}         # Optional server-side encryption configuration
+        http: {}       # Optional HTTP client configuration
+```
+
 ## Retention
 
 https://grafana.com/docs/loki/latest/operations/storage/retention/
