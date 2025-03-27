@@ -134,6 +134,12 @@ storage_config:
         bucket_name: loki
 ```
 
+## Thanos
+
+```sh
+https://grafana.com/docs/loki/latest/configure/examples/thanos-storage-configs/
+```
+
 ## Notes
 
 ```sh
