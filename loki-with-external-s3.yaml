@@ -1,3 +1,5 @@
+# Loki with external minio
+# Scalable
 loki:
   schemaConfig:
     configs:
@@ -20,7 +22,7 @@ loki:
   limits_config:
     allow_structured_metadata: true
     volume_enabled: true
-    retention_period: 24h # Retentions 1 days
+    retention_period: 168h # Retentions 7 days
   compactor:
     compaction_interval: 10m
     retention_enabled: true
@@ -29,8 +31,8 @@ loki:
   storage:
     bucketNames:
       chunks: chunks
-      ruler: ruler
-      admin: admin
+      ruler: chunks
+      admin: chunks
     type: s3
     s3:
       s3: http://10.111.0.128:80
@@ -67,11 +69,19 @@ read:
 write:
   replicas: 3 # To ensure data durability with replication
 
+# gateway:
+#   enabled: true
+#   replicas: 3
+  # service:
+  #   type: NodePort
 gateway:
-  enabled: true
-  replicas: 3
-  service:
-    type: NodePort
+ ingress:
+   enabled: true
+   hosts:
+     - host: loki.example.com
+       paths:
+         - path: /
+           pathType: Prefix
 
 # Enable minio for storage
 minio:

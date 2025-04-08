@@ -1,3 +1,5 @@
+# Loki with internal minio
+# Monolith
 loki:
   commonConfig:
     replication_factor: 3
