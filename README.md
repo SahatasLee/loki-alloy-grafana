@@ -5,9 +5,9 @@
 ```sh
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
-helm search repo ls
+helm search repo grafana/loki
 # install loki
-helm upgrade --install --namespace monitoring loki grafana/loki --version 3.4.2 -f loki-with-external-s3.yaml
+helm upgrade --install --namespace monitoring loki grafana/loki --version 6.29.0 -f loki-with-external-s3.yaml
 # install alloy
 # need to edit config.alloy
 vi config.alloy
